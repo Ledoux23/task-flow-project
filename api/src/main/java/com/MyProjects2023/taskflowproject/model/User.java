@@ -3,6 +3,8 @@ package com.MyProjects2023.taskflowproject.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,10 +38,12 @@ public class User {
 	private String role;
 	
 	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIdentityReference(alwaysAsId = true)
 	private List<Activity> activitiesCreated;
 	
 	@ManyToMany(mappedBy = "participants")
-	private List<Activity> activities;
+	//@JsonIdentityReference(alwaysAsId = true)
+	private List<Activity> activitiesFollowed;
 
 	
 	public User(String firstName, String lastName, String email, String password, String role) {
@@ -49,7 +53,7 @@ public class User {
 		this.email = email;
 		this.password = password;
 		this.role = role;
-		this.activities = new ArrayList<>();
+		this.activitiesFollowed = new ArrayList<>();
 		this.activitiesCreated = new ArrayList<>(); 
 	}
 	
@@ -59,33 +63,98 @@ public class User {
 		this.lastName = null;
 		this.email = null;
 		this.password = null;
-		this.role = null;
-		this.activities = new ArrayList<>();
+		this.role = "participant";
+		this.activitiesFollowed = new ArrayList<>();
 		this.activitiesCreated = new ArrayList<>(); 
 	}
 	
 	// Méthode pour ajouter une activité à un utilisateur
-    public void addActivity(Activity activity) {
-        if (activities == null) {
-            activities = new ArrayList<>();
+    public void addActivityFollowed(Activity activity) {
+        if (activitiesFollowed == null) {
+        	activitiesFollowed = new ArrayList<>();
         }
-        activities.add(activity);
+        activitiesFollowed.add(activity);
         activity.getParticipants().add(this);
     }
 
     // Méthode pour supprimer une activité d'un utilisateur
-    public void removeActivity(Activity activity) {
-        if (activities != null) {
-            activities.remove(activity);
+    public void removeActivityFollowed(Activity activity) {
+        if (activitiesFollowed != null) {
+        	activitiesFollowed.remove(activity);
             activity.getParticipants().remove(this);
         }
     }
-
-	public List<Activity> getActivities() {
-		return activities;
+    
+    // Méthode pour s'assurer qu'un rôle est valide
+    public boolean isRoleValid() {
+        return this.role.equals("admin") || 
+        		this.role.equals("owner") || 
+        		this.role.equals("participant");
+    }
+    
+    /*********** getters and setters ***************/
+    
+	public List<Activity> getActivitiesFollowed() {
+		return activitiesFollowed;
 	}
 
-    
+	public String getEmail() {
+		return email;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+	
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	// Setter pour le rôle avec validation
+	public void setRole(String role) {
+		if (isRoleValid()) {
+			this.role = role;
+		} else {
+			throw new IllegalArgumentException("Invalid role : " + role);
+		}
+		this.role = role;
+	}
+
+	public List<Activity> getActivitiesCreated() {
+		return activitiesCreated;
+	}
+
+	public void setActivitiesCreated(List<Activity> activitiesCreated) {
+		this.activitiesCreated = activitiesCreated;
+	}    
 
 	
 }
