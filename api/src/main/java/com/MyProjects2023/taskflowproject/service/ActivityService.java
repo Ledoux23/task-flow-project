@@ -12,5 +12,7 @@ public interface ActivityService {
 	void deleteActivity(Long id);
 	String findActivityStatus(Long id);
 	Activity findActivityByName(String name);
+	void addParticipantToActivity(Long activityId, Long userId);
+	void removeParticipantFromActivity(Long activityId, Long userId);
 	
 }

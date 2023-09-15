@@ -42,7 +42,7 @@ public class User {
 	private List<Activity> activitiesCreated;
 	
 	@ManyToMany(mappedBy = "participants")
-	//@JsonIdentityReference(alwaysAsId = true)
+	@JsonIdentityReference(alwaysAsId = true)
 	private List<Activity> activitiesFollowed;
 
 	
@@ -63,7 +63,7 @@ public class User {
 		this.lastName = null;
 		this.email = null;
 		this.password = null;
-		this.role = "participant";
+		this.role = "user";
 		this.activitiesFollowed = new ArrayList<>();
 		this.activitiesCreated = new ArrayList<>(); 
 	}
@@ -87,9 +87,8 @@ public class User {
     
     // Méthode pour s'assurer qu'un rôle est valide
     public boolean isRoleValid() {
-        return this.role.equals("admin") || 
-        		this.role.equals("owner") || 
-        		this.role.equals("participant");
+        return this.role.equals("admin") ||  
+        		this.role.equals("user");
     }
     
     /*********** getters and setters ***************/

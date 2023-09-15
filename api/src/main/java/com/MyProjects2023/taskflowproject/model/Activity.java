@@ -36,16 +36,18 @@ public class Activity {
 	
 	//une activité peut avoir plusieurs participants et un participant 
 	//peut participer à plusieurs activités
-	@ManyToMany
+	@ManyToMany	
 	@JoinTable(
 	    name = "activity_users",
 	    joinColumns = @JoinColumn(name = "activity_id"),
 	    inverseJoinColumns = @JoinColumn(name = "user_id")
 	)
+	@JsonIgnoreProperties({"firstName", "lastName", "email", "password", "role", "activitiesCreated", "activitiesFollowed"})
+	@JsonIdentityReference(alwaysAsId = true)
 	private List<User> participants; 
 	//Liste des personnes participant à cette activité
 
-	private String status; //0=en attente, 1=en cours, 2=fini
+	private String status;
 	
 	@ManyToOne
 	@JoinColumn(name = "owner_id")
@@ -57,9 +59,7 @@ public class Activity {
 		super();
 		this.name = name;
 		this.participants = new ArrayList<>();
-//		this.status = (status != null) ? status : "waiting"; // Utiliser "waiting" comme valeur par défaut si status est null
 		this.status = status;
-//		setStatus(status); // Utiliser la méthode setStatus pour valider le statut
 		this.owner = owner;
 	}
 	
@@ -88,12 +88,9 @@ public class Activity {
 	
 	// Méthode pour s'assurer qu'un statut est valide
     public boolean isValidStatus() {
-        return this.status == "waiting" || 
-        		this.status == "inprogress" || 
-        		this.status == "finished";
-//        		this.status.equals("waiting") ||
-//        		this.status.equals("inprogress") || 
-//        		this.status.equals("finished");
+        return this.status.equals("waiting") ||
+        		this.status.equals("inprogress") || 
+        		this.status.equals("finished");
     }
 
     

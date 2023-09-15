@@ -3,6 +3,8 @@ package com.MyProjects2023.taskflowproject.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -62,6 +64,34 @@ public class ActivityController {
     @GetMapping("/find")
     public Activity findActivityByName(@RequestParam String name) {
         return activityService.findActivityByName(name);
+    }
+    
+    // Endpoint pour ajouter un participant à une activité
+    @PostMapping("/{activityId}/addParticipant/{userId}")
+    public ResponseEntity<String> addParticipantToActivity(
+            @PathVariable Long activityId,
+            @PathVariable Long userId
+    ) {
+        try {
+            activityService.addParticipantToActivity(activityId, userId);
+            return ResponseEntity.status(HttpStatus.OK).body("Participant added to activity successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error adding participant to activity.");
+        }
+    }
+
+    // Endpoint pour supprimer un participant d'une activité
+    @PostMapping("/{activityId}/removeParticipant/{userId}")
+    public ResponseEntity<String> removeParticipantFromActivity(
+            @PathVariable Long activityId,
+            @PathVariable Long userId
+    ) {
+        try {
+            activityService.removeParticipantFromActivity(activityId, userId);
+            return ResponseEntity.status(HttpStatus.OK).body("Participant removed from activity successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error removing participant from activity.");
+        }
     }
 
 }
