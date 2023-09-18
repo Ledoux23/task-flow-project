@@ -57,6 +57,13 @@ public class UserController {
     public String getUserRole(@PathVariable Long id) {
         return userService.findUserRole(id);
     }
+    
+    // Endpoint pour chercher un utilisateur
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable Long id) {
+        // Vous pouvez implémenter la logique pour mettre à jour l'utilisateur avec l'ID spécifié ici
+        return userService.findUser(id);
+    }
 
     // Endpoint pour trouver un utilisateur par nom
     @GetMapping("/find")

@@ -13,5 +13,6 @@ public interface UserService {
 	String findUserRole(Long id);
 	User findUserByName(String firstName,String lastName);
 	User findUserByMail(String mail);
+	User findUser(Long id);
 
 }

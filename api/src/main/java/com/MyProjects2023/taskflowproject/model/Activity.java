@@ -34,6 +34,8 @@ public class Activity {
 	
 	private String name;
 	
+	private String description;
+	
 	//une activité peut avoir plusieurs participants et un participant 
 	//peut participer à plusieurs activités
 	@ManyToMany	
@@ -51,13 +53,14 @@ public class Activity {
 	
 	@ManyToOne
 	@JoinColumn(name = "owner_id")
-	@JsonIgnoreProperties({"firstName", "lastName", "email", "password", "role", "activitiesCreated", "activitiesFollowed"})
+	@JsonIgnoreProperties({"email", "password", "role", "activitiesCreated", "activitiesFollowed"})
 	@JsonIdentityReference(alwaysAsId = true)
 	private User owner;
 
-	public Activity(String name, String status, User owner) {
+	public Activity(String name, String description, String status, User owner) {
 		super();
 		this.name = name;
+		this.description = description;
 		this.participants = new ArrayList<>();
 		this.status = status;
 		this.owner = owner;
@@ -66,6 +69,7 @@ public class Activity {
 	public Activity() {
 		super();
 		this.name = null;
+		this.description = null;
 		this.participants = new ArrayList<>();
 		this.status = "waiting";
 		this.owner = null;
@@ -106,6 +110,14 @@ public class Activity {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public User getOwner() {
