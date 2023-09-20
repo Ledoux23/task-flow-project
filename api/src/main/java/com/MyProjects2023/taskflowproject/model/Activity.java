@@ -1,11 +1,19 @@
 package com.MyProjects2023.taskflowproject.model;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.annotation.CreatedDate;
+
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,7 +22,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.Data;
 
 /*
@@ -56,6 +67,11 @@ public class Activity {
 	@JsonIgnoreProperties({"email", "password", "role", "activitiesCreated", "activitiesFollowed"})
 	@JsonIdentityReference(alwaysAsId = true)
 	private User owner;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
+    @Column(name = "creation_date")
+    private LocalDateTime creationDate;
 
 	public Activity(String name, String description, String status, User owner) {
 		super();
@@ -91,6 +107,7 @@ public class Activity {
 	}
 	
 	// Méthode pour s'assurer qu'un statut est valide
+	@JsonIgnore
     public boolean isValidStatus() {
         return this.status.equals("waiting") ||
         		this.status.equals("inprogress") || 
@@ -149,7 +166,32 @@ public class Activity {
         }
     	this.status = status;
     }
+    
+    //@JsonIgnore
+    public String getFormattedCreationDate() {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+//        return creationDate.format(formatter);
+    	if (creationDate != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            return creationDate.format(formatter);
+        } else {
+            return "N/A"; // ou tout autre texte que vous souhaitez afficher pour les dates null
+        }
+    }
+    
+    @PrePersist
+    protected void onCreate() {
+        this.creationDate = LocalDateTime.now();
+    }
 
+    @JsonIgnore
+	public LocalDateTime getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(LocalDateTime now) {
+		this.creationDate = now;	
+	}
 
 	
 }

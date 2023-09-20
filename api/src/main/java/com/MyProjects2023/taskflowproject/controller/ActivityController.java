@@ -1,5 +1,6 @@
 package com.MyProjects2023.taskflowproject.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.MyProjects2023.taskflowproject.model.Activity;
+import com.MyProjects2023.taskflowproject.model.User;
 import com.MyProjects2023.taskflowproject.service.ActivityService;
 
 @RestController
@@ -35,10 +37,29 @@ public class ActivityController {
         return activityService.allActivities();
     }
 
-    // Endpoint pour créer une nouvelle activité
+//    // Endpoint pour créer une nouvelle activité
+//    @PostMapping
+//    public Activity createActivity(@RequestBody Activity activity) {
+//    	// Assurez-vous que la date de création est définie
+//        activity.setCreationDate(LocalDateTime.now());
+//        return activityService.createActivity(activity);
+//    }
+ // Endpoint pour créer une nouvelle activité
     @PostMapping
-    public Activity createActivity(@RequestBody Activity activity) {
-        return activityService.createActivity(activity);
+    public ResponseEntity<Object> createActivity(@RequestBody Activity activity) {
+        try {
+            // Vérifier si l'utilisateur propriétaire existe
+            User owner = activity.getOwner();
+            if (owner != null && owner.getId() == null) {
+                // L'utilisateur propriétaire n'existe pas encore dans la base de données
+                return ResponseEntity.badRequest().body("L'utilisateur propriétaire doit être enregistré avant de créer l'activité.");
+            }
+            // S'assurer que la date de création est définie
+            activity.setCreationDate(LocalDateTime.now());
+            return ResponseEntity.ok(activityService.createActivity(activity));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors de la création de l'activité.");
+        }
     }
 
     // Endpoint pour mettre à jour une activité par ID
@@ -61,10 +82,22 @@ public class ActivityController {
     }
 
     // Endpoint pour trouver une activité par nom
-    @GetMapping("/find")
+    @GetMapping("/find/{name}")
     public Activity findActivityByName(@RequestParam String name) {
         return activityService.findActivityByName(name);
     }
+    
+    // Endpoint pour trouver une activité par son ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Activity> findActivityById(@PathVariable Long id) {
+        try {
+            Activity activity = activityService.findActivityById(id);
+            return ResponseEntity.ok(activity);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     
     // Endpoint pour ajouter un participant à une activité
     @PostMapping("/{activityId}/addParticipant/{userId}")
@@ -93,5 +126,17 @@ public class ActivityController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error removing participant from activity.");
         }
     }
+    
+ // Endpoint pour obtenir l'heure de création d'une activité par ID
+    @GetMapping("/{id}/creationDate")
+    public ResponseEntity<String> getActivityCreationDate(@PathVariable Long id) {
+        try {
+            String creationDate = activityService.findActivityCreationDate(id);
+            return ResponseEntity.ok(creationDate);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
 }

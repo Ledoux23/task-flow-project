@@ -14,5 +14,7 @@ public interface ActivityService {
 	Activity findActivityByName(String name);
 	void addParticipantToActivity(Long activityId, Long userId);
 	void removeParticipantFromActivity(Long activityId, Long userId);
+	Activity findActivityById(Long id);
+	String findActivityCreationDate(Long id);
 	
 }

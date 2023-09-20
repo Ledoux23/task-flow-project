@@ -1,5 +1,7 @@
 package com.MyProjects2023.taskflowproject.service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import java.util.Optional;
@@ -108,6 +110,36 @@ public class ActivityServiceImplementation implements ActivityService {
 	        throw new IllegalArgumentException("User not found with ID : " + userId + " in activity with ID : " + activityId);
 	    }	
 	}
+
+	@Override
+	public Activity findActivityById(Long id) {
+		Optional<Activity> activityOptional = activityRepository.findById(id);
+
+	    if (activityOptional.isPresent()) {
+	        return activityOptional.get();
+	    } else {
+	        throw new IllegalArgumentException("No activity found with ID: " + id);
+	    }
+	}
+
+	@Override
+	public String findActivityCreationDate(Long id) {
+	    Activity activity = activityRepository.findById(id)
+	            .orElseThrow(() -> new IllegalArgumentException("Activité introuvable avec l'ID : " + id));
+
+	    // Récupérez la date de création de l'activité
+	    LocalDateTime creationDate = activity.getCreationDate();
+
+	    if (creationDate != null) {
+	        // Formattez la date au format JJ-MM-AAAA HH:mm
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+	        return creationDate.format(formatter);
+	    } else {
+	        // Gérez le cas où la date de création est nulle (par exemple, renvoyez une chaîne vide ou un message d'erreur)
+	        return "Date de création non disponible";
+	    }
+	}
+
 	
 
 }

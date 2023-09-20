@@ -2,40 +2,33 @@
   <h2 *ngIf="tasks && tasks.length > 0">{{title}}</h2>
   <!-- Avec la directive *ngIf le titre h2 s'affiche ssi le tableau tasks contient au moins 1 élément -->
 
-  <button class="btn btn-primary d-flex mb-3" (click)="toggleIsNewBadge()">
-    <span class="material-icons">
-      {{showBadge ? 'visibility_off' : 'visibility'}}
-    </span>
-    <span class="ml-3">
-      {{showBadge ? 'Hide' : 'Display'}} New activities
-    </span>
-  </button>
+  <!-- <div class="d-flex justify-content-between"> -->
+    <button class="btn btn-info mb-3" (click)="navigateToCreateTask()">Create new activity</button>
+    <button class="btn btn-primary d-flex mb-3" (click)="toggleIsNewBadge()">
+      <span class="material-icons">
+        {{showBadge ? 'visibility_off' : 'visibility'}}
+      </span>
+      <span class="ml-3">
+        {{showBadge ? 'Hide' : 'Display'}} New activities
+      </span>
+    </button>
+<!-- </div> -->
 
   <div class="d-flex flex-wrap justify-content-between">
     <div class="row row-cols-1 row-cols-md-3">
-      <div class="col mb-4" *ngFor="let task of tasks">
-        <div class="card-deck">
-          <!-- Avec la directive *ngFor chaque élément du tableau tasks s'affiche dans une balise <a> -->
-          <!-- <img [src]="task.imageUrl" [title]='task.name' class="card-img-top" [alt]='task.name'> -->
-          <div class="card-body">
+      <div class="col mb-4" *ngFor="let task of tasks; let i = index">
+
+        <ul class="list-group" >
+
+          <li class="list-group-item list-group-item-{{colors[i % colors.length]}}">
             <span class="badge badge-pill text-bg-success" *ngIf="showBadge">New</span>
-            <h4 class="card-title">{{task.name}}</h4>
-            <p class="card-text">{{task.description}}</p>
-            <p class="card-text"><strong>{{task.status}}</strong></p>
-            <p class="card-text">By : {{task.owner.firstName}} {{task.owner.lastName}}</p>
-            <!-- <ul class="list-group list-group-flush">
-              <li class="list-group-item" *ngFor="let participant of task.participants">{{ participant }}</li>
-            </ul> -->
-          </div>
-          <!-- <ul class="list-group list-group-flush">
-            <li class="list-group-item" *ngFor="let item of task.taskItems">{{ item }}</li>
-          </ul> -->
-          <!-- Avec la directive *ngFor chaque thème de l'activité s'affiche dans une balise <li> -->
-          <!-- <div class="card-body">
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
-          </div> -->
-        </div>
+            <h4 class="card-title">
+              <a [routerLink]="['/task', task.id]" style="text-decoration: none;">{{ task.name }}</a>
+            </h4>
+          </li>
+
+        </ul>
+
       </div>
     </div>
   </div>

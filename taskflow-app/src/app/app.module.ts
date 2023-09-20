@@ -13,7 +13,7 @@ import { TaskCreateComponent } from './activity/task-create/task-create.componen
   declarations: [
     AppComponent,
     TaskListComponent,
-    TaskCreateComponent
+    TaskCreateComponent,
   ],
   imports: [
     BrowserModule,

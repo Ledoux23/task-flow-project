@@ -51,4 +51,14 @@ export class ActivityService {
     return this.http.get<any>(`http://localhost:8080/api/users?firstName=${firstName}&lastName=${lastName}`);
   }
 
+  // Récupérer une activité par son ID
+  getActivityById(id: number): Observable<any> {
+    return this.http.get<any>(`http://localhost:8080/api/activities/${id}`);
+  }
+
+  // getFormattedCreationDateById(id: number): Observable<string> {
+  //   return this.http.get<string>(`http://localhost:8080/api/activities/${id}/formattedCreationDate`);
+  // }
+
+
 }

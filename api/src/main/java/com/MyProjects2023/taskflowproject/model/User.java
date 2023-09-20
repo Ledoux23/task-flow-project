@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -86,6 +87,7 @@ public class User {
     }
     
     // Méthode pour s'assurer qu'un rôle est valide
+    @JsonIgnore
     public boolean isRoleValid() {
         return this.role.equals("admin") ||  
         		this.role.equals("user");

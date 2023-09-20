@@ -1,0 +1,29 @@
+<div class="container">
+
+  <h2 class="text-center">{{title}}</h2>
+
+  <div class="card mx-auto" style="width: 48rem;">
+    <div class="card-body">
+      <h3>{{ task.name }}</h3>
+      <h6 class="card-subtitle mb-2 text-body-secondary">
+        <!-- By : {{ task.owner.firstName }} {{ task.owner.lastName }} -->
+        By : {{ task.owner ? task.owner.firstName + ' ' + task.owner.lastName : 'N/A' }}
+        on {{ task.formattedCreationDate }}
+        <!-- on : {{ task.formattedCreationDate ? task.formattedCreationDate : 'N/A' }} -->
+      </h6>
+      <p class="card-text">Satatus : <strong class="text-success">{{task.status}}</strong></p>
+      <p class="card-text">{{task.description}}</p>
+      <div>
+        <a href="/tasks" class="btn btn-primary">
+          <i class="material-icons align-middle mr-2">keyboard_return</i>
+          Back to the list
+        </a>
+        <button type="submit" class="btn btn-secondary">Edit</button>
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </div>
+      <!-- <a class="card-link" [routerLink]="['/tasks']">Back to the list</a> -->
+
+    </div>
+  </div>
+
+</div>

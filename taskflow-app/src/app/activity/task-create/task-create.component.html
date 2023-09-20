@@ -29,6 +29,11 @@
 <div class="container">
   <h2>{{ title }}</h2>
 
+  <a href="/tasks" class="btn btn-info">
+    <i class="material-icons align-middle mr-2">keyboard_return</i>
+    Back to the list
+  </a>
+
   <!-- Afficher les messages d'erreur ici s'il y en a -->
   <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
 
@@ -67,6 +72,6 @@
       <label for="lastName" class="form-label">Nom de l'auteur</label>
       <input type="text" class="form-control" id="lastName" placeholder="Nom de l'auteur" ngModel="newActivity.owner.lastName">
     </div>
-    <button type="submit" class="btn btn-primary">Créer l'activité</button>
+    <button type="submit" class="btn btn-primary">Create</button>
   </form>
 </div>
