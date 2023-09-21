@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ActivityService } from '../activity.service';
+// import { ITask } from '../task';
 // import * as moment from 'moment';
 
 

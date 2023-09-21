@@ -8,7 +8,7 @@ import { ActivityService } from './../activity.service';
 })
 
 export class TaskCreateComponent implements OnInit {
-  public title = 'Créer une activité';
+  public title = 'Create an activity';
   public newActivity: any = {
     name: '', // Initialisez le nom de l'activité
     description: '', // Initialisez la description de l'activité
@@ -42,14 +42,14 @@ export class TaskCreateComponent implements OnInit {
         (response) => {
           // Traitement de la réponse réussie
           console.log('Activité créée avec succès :', response);
-          // Réinitialisez les données du formulaire ou effectuez d'autres actions nécessaires
+          // Réinitialiser les données du formulaire ou effectuez d'autres actions nécessaires
           this.newActivity = {};
-          this.errorMessage = ''; // Réinitialisez également les messages d'erreur
-          // Vous pouvez ajouter ici du code pour mettre à jour l'affichage ou afficher un message de succès.
+          this.errorMessage = ''; // Réinitialiser également les messages d'erreur
+          // Possibilité d'ajouter ici du code pour mettre à jour l'affichage ou afficher un message de succès.
         },
         (error) => {
           console.error('Erreur lors de la création de l\'activité', error);
-          // Affichez un message d'erreur approprié à l'utilisateur en cas d'échec
+          // Afficher un message d'erreur approprié à l'utilisateur en cas d'échec
           this.errorMessage = 'Une erreur s\'est produite lors de la création de l\'activité.';
         }
       );

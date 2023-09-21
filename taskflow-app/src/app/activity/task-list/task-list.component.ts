@@ -9,11 +9,13 @@ import { Router } from '@angular/router';
 })
 export class TaskListComponent implements OnInit {
 
-  public title = 'Liste des tâches';
+  public title = 'To do-list';
   public tasks: any[] = [];
    // public showBadge: boolean = false; // '!' to ensure that is not 'null' or 'undefined'
   public showBadge!: boolean;
   public colors = ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"]; // Tableau de couleurs
+  private _activityFilter = 'word';
+  public filteredActivities: any[] = [];
 
   constructor(
     private activityService: ActivityService,
@@ -22,6 +24,7 @@ export class TaskListComponent implements OnInit {
 
   ngOnInit() {
     this.fetchTasks(); // Appel de la méthode pour récupérer les tâches depuis le backend
+    this.activityFilter = '';
   }
 
   fetchTasks() {
@@ -29,7 +32,9 @@ export class TaskListComponent implements OnInit {
       .subscribe(
         (response) => {
           this.tasks = response;
-          console.log('Données récupérées du backend :', this.tasks);
+            console.log('Données récupérées du backend :', this.tasks);
+          this.filteredActivities = this.tasks;   // Rien n'est encore filtré au départ
+            console.log('Données du filteredActivities :', this.filteredActivities);
         },
         (error) => {
           console.error('Erreur lors de la récupération des activités depuis le backend', error);
@@ -48,94 +53,38 @@ export class TaskListComponent implements OnInit {
     this.router.navigate(['/create-task']);
   }
 
+
+  // getter et setter pour _activityFilter
+  public get activityFilter(): string {
+    return this._activityFilter;
+  }
+
+  public set activityFilter(filter: string) {
+
+    this._activityFilter = filter;
+
+    this.filteredActivities = this.activityFilter ? this.filterActivities(this.activityFilter) : this.tasks;
+
+  }
+
+  private filterActivities(criteria: string): string[] {
+
+    criteria = criteria.toLocaleLowerCase();
+
+    // Retourner toutes les activités si le filtre est une chaîne vide ou ne contient que des espaces.
+    if (criteria.trim() === '') {
+      return this.tasks;
+    }
+
+    const res = this.tasks.filter(
+      (task: any) => task.name.toLocaleLowerCase().indexOf(criteria) != -1
+    );
+
+    return res;
+
+  }
+
 }
-
-// updateActivity(activity: any) {
-  //   this.activityService.updateActivity(activity.id, activity)
-  //     .subscribe(
-  //       (response) => {
-  //         // Traitement de la réponse réussie
-  //         console.log('Activité mise à jour avec succès :', response);
-  //         // Vous pouvez ajouter ici du code pour mettre à jour l'affichage ou afficher un message de succès.
-  //       },
-  //       (error) => {
-  //         console.error('Erreur lors de la mise à jour de l\'activité', error);
-  //         // Vous pouvez ajouter ici du code pour afficher un message d'erreur à l'utilisateur.
-  //       }
-  //     );
-  // }
-
-  // deleteActivity(id: number) {
-  //   this.activityService.deleteActivity(id)
-  //     .subscribe(
-  //       () => {
-  //         // L'activité a été supprimée avec succès
-  //         console.log('Activité supprimée avec succès');
-  //         // Vous pouvez ajouter ici du code pour mettre à jour l'affichage ou afficher un message de succès.
-  //       },
-  //       (error) => {
-  //         console.error('Erreur lors de la suppression de l\'activité', error);
-  //         // Vous pouvez ajouter ici du code pour afficher un message d'erreur à l'utilisateur.
-  //       }
-  //     );
-  // }
-
-  // getActivityStatus(id: number) {
-  //   this.activityService.getActivityStatus(id)
-  //     .subscribe(
-  //       (status) => {
-  //         console.log('Statut de l\'activité :', status);
-  //         // Vous pouvez ajouter ici du code pour afficher le statut à l'utilisateur.
-  //       },
-  //       (error) => {
-  //         console.error('Erreur lors de la récupération du statut de l\'activité', error);
-  //         // Vous pouvez ajouter ici du code pour afficher un message d'erreur à l'utilisateur.
-  //       }
-  //     );
-  // }
-
-  // findActivityByName(name: string) {
-  //   this.activityService.findActivityByName(name)
-  //     .subscribe(
-  //       (activity) => {
-  //         console.log('Activité trouvée :', activity);
-  //         // Vous pouvez ajouter ici du code pour afficher l'activité à l'utilisateur.
-  //       },
-  //       (error) => {
-  //         console.error('Erreur lors de la recherche de l\'activité par nom', error);
-  //         // Vous pouvez ajouter ici du code pour afficher un message d'erreur à l'utilisateur.
-  //       }
-  //     );
-  // }
-
-  // addParticipantToActivity(activityId: number, userId: number) {
-  //   this.activityService.addParticipantToActivity(activityId, userId)
-  //     .subscribe(
-  //       (response) => {
-  //         // Traitement de la réponse réussie
-  //         console.log('Participant ajouté à l\'activité avec succès :', response);
-  //         // Vous pouvez ajouter ici du code pour mettre à jour l'affichage ou afficher un message de succès.
-  //       },
-  //       (error) => {
-  //         console.error('Erreur lors de l\'ajout de participant à l\'activité', error);
-  //         // Vous pouvez ajouter ici du code pour afficher un message d'erreur à l'utilisateur.
-  //       }
-  //     );
-  // }
-
-  // removeParticipantFromActivity(activityId: number, userId: number) {
-  //   this.activityService.removeParticipantFromActivity(activityId, userId)
-  //     .subscribe(
-  //       (response) => {
-  //         // Traitement de la réponse réussie
-  //         console.log('Participant supprimé de l\'activité avec succès :', response);
-  //         // Vous pouvez ajouter ici du code pour mettre à jour l'affichage ou afficher un message de succès.
-  //       },
-  //       (error) => {
-  //         console.error('Erreur lors de la suppression du participant de l\'activité', error);
-  //       }
-  //     );
-  // }
 
 /**
  * Utilisez le module HttpClient d'Angular pour effectuer des requêtes HTTP vers le backend Java.

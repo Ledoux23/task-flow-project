@@ -1,31 +1,3 @@
-<!-- <div class="mb-3">
-  <label for="exampleFormControlInput1" class="form-label">Email address</label>
-  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-</div>
-<div class="mb-3">
-  <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-</div> -->
-
-<!-- <div class="container">
-  <h2>{{ title }}</h2>
-
-  <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
-
-  <form (ngSubmit)="createActivity()">
-    <div class="mb-3">
-      <label for="activityName" class="form-label">Nom de l'activité</label>
-      <input type="text" class="form-control" id="activityName" placeholder="Nom de l'activité" [(ngModel)]="newActivity.name" required>
-    </div>
-    <div class="mb-3">
-      <label for="activityDescription" class="form-label">Description de l'activité</label>
-      <textarea class="form-control" id="activityDescription" rows="3" placeholder="Description de l'activité" [(ngModel)]="newActivity.description" required></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Créer l'activité</button>
-  </form>
-</div> -->
-
-
 <div class="container">
   <h2>{{ title }}</h2>
 
@@ -33,6 +5,8 @@
     <i class="material-icons align-middle mr-2">keyboard_return</i>
     Back to the list
   </a>
+
+  <hr>
 
   <!-- Afficher les messages d'erreur ici s'il y en a -->
   <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>

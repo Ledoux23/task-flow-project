@@ -1,8 +1,8 @@
 <div class="container">
-  <h2 *ngIf="tasks && tasks.length > 0">{{title}}</h2>
+  <h2 class="mb-3" *ngIf="tasks && tasks.length > 0">{{title}}</h2>
   <!-- Avec la directive *ngIf le titre h2 s'affiche ssi le tableau tasks contient au moins 1 élément -->
 
-  <!-- <div class="d-flex justify-content-between"> -->
+  <div class="d-flex justify-content-between">
     <button class="btn btn-info mb-3" (click)="navigateToCreateTask()">Create new activity</button>
     <button class="btn btn-primary d-flex mb-3" (click)="toggleIsNewBadge()">
       <span class="material-icons">
@@ -12,12 +12,29 @@
         {{showBadge ? 'Hide' : 'Display'}} New activities
       </span>
     </button>
-<!-- </div> -->
+  </div>
+
+  <hr>
+
+  <!-- Création du formulaire de recherche -->
+  <div class="my-2">
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <span>Search for an activity : </span>
+        <b>{{ activityFilter }}</b>
+      </div>
+      <div class="col-md-8 form-group">
+        <!-- <input type="text" class="form-control" [ngModel]="activiFilter" (ngModelChange)="activiFilter = $event"> -->
+        <input type="text" class="form-control" placeholder="Enter the title of the desired activity" [(ngModel)]="activityFilter">
+      </div>
+    </div>
+
+  </div>
 
   <div class="d-flex flex-wrap justify-content-between">
     <div class="row row-cols-1 row-cols-md-3">
-      <div class="col mb-4" *ngFor="let task of tasks; let i = index">
-
+      <!-- <div class="col mb-4" *ngFor="let task of tasks; let i = index"> -->
+      <div class="col mb-4" *ngFor="let task of filteredActivities; let i = index">
         <ul class="list-group" >
 
           <li class="list-group-item list-group-item-{{colors[i % colors.length]}}">
