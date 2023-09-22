@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ActivityService } from '../activity.service';
 // import { ITask } from '../task';
 // import * as moment from 'moment';
@@ -18,6 +18,7 @@ export class TaskDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private activityService: ActivityService
   ) {}
 
@@ -47,4 +48,21 @@ export class TaskDetailComponent implements OnInit {
       }
     );
   }
+
+  deleteActivity() {
+    if (this.task && this.task.id) {
+      this.activityService.deleteActivity(this.task.id).subscribe(
+        () => {
+          console.log('Activité supprimée avec succès');
+          this.router.navigate(['/tasks']);   // Revenir à la page précédente
+        },
+        (error) => {
+          console.error('Erreur lors de la suppression de l\'activité', error);
+        }
+      );
+    }
+  }
+
+
+
 }

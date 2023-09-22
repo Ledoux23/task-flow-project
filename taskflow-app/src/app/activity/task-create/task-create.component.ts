@@ -14,7 +14,7 @@ export class TaskCreateComponent implements OnInit {
     description: '', // Initialisez la description de l'activité
     // status: 'waiting', // Initialisez le statut de l'activité
     owner: {
-      // id: null,
+      // id: 0,
       firstName: '',
       lastName: ''
     }
@@ -58,6 +58,6 @@ export class TaskCreateComponent implements OnInit {
   // Méthode pour vérifier la validité des données (vous pouvez personnaliser les règles de validation)
   isDataValid(): boolean {
     // Par exemple, vous pouvez vérifier si les champs obligatoires sont remplis
-    return !!this.newActivity.name && !!this.newActivity.description;
+    return !!this.newActivity.name.trim() && !!this.newActivity.description.trim();
   }
 }
