@@ -21,3 +21,18 @@
 //   }
 
 // }
+
+
+export class Activity {
+  constructor(
+    public name: string,
+    public description: string,
+    public owner: {
+      firstName: string,
+      lastName: string,
+      id?: number
+    }
+    // Ajouter d'autres propriétés ici si nécessaire
+  ) {}
+}
+

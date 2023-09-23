@@ -1,5 +1,5 @@
 <div class="container">
-  <h2>{{ title }}</h2>
+  <h2 class="text-center">{{ title }}</h2>
 
   <a href="/tasks" class="btn btn-info">
     <i class="material-icons align-middle mr-2">keyboard_return</i>
@@ -8,44 +8,29 @@
 
   <hr>
 
-  <!-- Afficher les messages d'erreur ici s'il y en a -->
-  <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
-
-  <!-- Formulaire de création d'activité -->
-  <form #activityForm="ngForm" (ngSubmit)="createActivity()" class="was-validated">
-    <div class="mb-3">
-      <label for="activityName" class="form-label">Nom de l'activité</label>
-      <input type="text" class="form-control" id="activityName" placeholder="Nom de l'activité" [(ngModel)]="newActivity.name" required>
-      <!-- <input type="text" class="form-control" id="activityName" placeholder="Nom de l'activité" [(ngModel)]="newActivity.name" required> -->
+  <form (submit)="createActivity()">
+    <div class="form-group">
+      <label for="activityName">Nom de l'activité</label>
+      <input type="text" class="form-control" id="activityName" name="activityName" [(ngModel)]="newActivity.name" required>
     </div>
-    <div class="mb-3">
-      <label for="activityDescription" class="form-label">Description de l'activité</label>
-      <textarea class="form-control" id="activityDescription" rows="3" placeholder="Description de l'activité" [(ngModel)]="newActivity.description" required></textarea>
-      <!-- <textarea class="form-control" id="activityDescription" rows="3" placeholder="Description de l'activité" [(ngModel)]="newActivity.description" required></textarea> -->
+    <div class="form-group">
+      <label for="activityDescription">Description de l'activité</label>
+      <textarea class="form-control" id="activityDescription" name="activityDescription" rows="3" [(ngModel)]="newActivity.description" required></textarea>
     </div>
-    <!-- Champ pour les participants (vous pouvez le personnaliser) -->
-    <!-- <div class="mb-3">
-      <label for="participants" class="form-label">Participants</label>
-      <input type="text" class="form-control" id="participants" placeholder="Participants" ngModel="newActivity.participants">
-    </div> -->
-    <!-- Champ pour le statut (vous pouvez le personnaliser) -->
-    <!-- <div class="mb-3">
-      <label for="status" class="form-label">Statut</label>
-      <input type="text" class="form-control" id="status" placeholder="Statut" ngModel="newActivity.status">
-    </div> -->
-    <!-- Champ pour l'auteur (propriété "owner") -->
-    <!-- <div class="mb-3">
-      <label for="ownerId" class="form-label">ID de l'auteur</label>
-      <input type="number" class="form-control" id="ownerId" placeholder="ID de l'auteur" ngModel="newActivity.owner.id">
-    </div> -->
-    <div class="mb-3">
-      <label for="firstName" class="form-label">Prénom de l'auteur</label>
-      <input type="text" class="form-control" id="firstName" placeholder="Prénom de l'auteur" [(ngModel)]="newActivity.owner.firstName">
+    <div class="form-group">
+      <label for="authorFirstName">Prénom de l'auteur</label>
+      <input type="text" class="form-control" id="authorFirstName" name="authorFirstName" [(ngModel)]="newActivity.owner.firstName" required>
     </div>
-    <div class="mb-3">
-      <label for="lastName" class="form-label">Nom de l'auteur</label>
-      <input type="text" class="form-control" id="lastName" placeholder="Nom de l'auteur" [(ngModel)]="newActivity.owner.lastName">
+    <div class="form-group">
+      <label for="authorLastName">Nom de l'auteur</label>
+      <input type="text" class="form-control" id="authorLastName" name="authorLastName" [(ngModel)]="newActivity.owner.lastName" required>
     </div>
-    <button type="submit" class="btn btn-primary">Create</button>
+    <!-- Ajouter d'autres champs du formulaire ici si nécessaire -->
+    <div class="form-group text-center mt-3">
+      <button type="submit" class="btn btn-primary">Create</button>
+    </div>
   </form>
+
 </div>
+
+<!-- [routerLink]="['/tasks']" -->

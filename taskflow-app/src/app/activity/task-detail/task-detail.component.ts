@@ -55,6 +55,7 @@ export class TaskDetailComponent implements OnInit {
         () => {
           console.log('Activité supprimée avec succès');
           this.router.navigate(['/tasks']);   // Revenir à la page précédente
+          window.alert('L\'activité a été supprimée avec succès!');
         },
         (error) => {
           console.error('Erreur lors de la suppression de l\'activité', error);

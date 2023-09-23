@@ -48,7 +48,7 @@ export class ActivityService {
 
   // Récupérer un utilisateur par son prénom et nom de famille
   getUserByName(firstName: string, lastName: string) {
-    return this.http.get<any>(`http://localhost:8080/api/users?firstName=${firstName}&lastName=${lastName}`);
+    return this.http.get<any>(`http://localhost:8080/api/users/find?firstName=${firstName}&lastName=${lastName}`);
   }
 
   // Récupérer une activité par son ID
@@ -60,5 +60,8 @@ export class ActivityService {
   //   return this.http.get<string>(`http://localhost:8080/api/activities/${id}/formattedCreationDate`);
   // }
 
+  getAllUsers(): Observable<any> {
+    return this.http.get<any[]>('http://localhost:8080/api/users');
+  }
 
 }
