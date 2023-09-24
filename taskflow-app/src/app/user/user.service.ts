@@ -1,30 +1,46 @@
-// import { Component, OnInit } from '@angular/core';
-// import { UserService } from './../user.service';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
-// @Component({
-//   selector: 'app-user-details',
-//   templateUrl: './user-details.component.html',
-//   styleUrls: ['./user-details.component.css']
-// })
-// export class UserDetailsComponent implements OnInit {
-//   public user: any = {}; // Initialisez l'utilisateur récupéré
+@Injectable({
+  providedIn: 'root'
+})
 
-//   constructor(private userService: UserService) {}
+export class UserService {
+  constructor(private http: HttpClient) {}
 
-//   ngOnInit() {
-//     // Exemple d'utilisation de la méthode pour récupérer un utilisateur par prénom et nom de famille
-//     const firstName = 'John';
-//     const lastName = 'Doe';
+  getAllUsers(): Observable<any> {
+    return this.http.get<any[]>('http://localhost:8080/api/users');
+  }
 
-//     this.userService.getUserByName(firstName, lastName)
-//       .subscribe(
-//         (user) => {
-//           this.user = user;
-//           console.log('Utilisateur récupéré :', this.user);
-//         },
-//         (error) => {
-//           console.error('Erreur lors de la récupération de l\'utilisateur', error);
-//         }
-//       );
-//   }
-// }
+  createUser(user: any): Observable<any> {
+    return this.http.post<any>('http://localhost:8080/api/users', user);
+  }
+
+  updateUser(id: number, user: any): Observable<any> {
+    return this.http.put<any>(`http://localhost:8080/api/users/${id}`, user);
+  }
+
+  deleteAUser(id: number): Observable<void> {
+    return this.http.delete<void>(`http://localhost:8080/api/users/${id}`);
+  }
+
+  getUserById(id: number): Observable<string> {
+    return this.http.get<string>(`http://localhost:8080/api/users/${id}`);
+  }
+
+  getUserByName(firstName: string, lastName: string) {
+    return this.http.get<any>(`http://localhost:8080/api/users/find?firstName=${firstName}&lastName=${lastName}`);
+  }
+
+  getUserByMail(mail: string) {
+    return this.http.get<any>(`http://localhost:8080/api/users/findByMail?email=${mail}`);
+  }
+
+
+
+}
+
+
+
+

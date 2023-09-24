@@ -92,7 +92,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ActivityService } from '../activity.service';
-import { Activity } from './task.model';
+import { Activity } from '../../activity/task.model';
 import { User } from '../../user/user.model';
 
 @Component({

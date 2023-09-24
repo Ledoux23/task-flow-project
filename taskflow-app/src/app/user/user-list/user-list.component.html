@@ -1,0 +1,28 @@
+<div class="container">
+  <h2 class="mb-3" *ngIf="users && users.length > 0">{{title}}</h2>
+
+  <hr>
+
+  <div class="d-flex justify-content-between mb-3">
+    <div>
+      <label class="mr-3">Filtrer par : </label>
+      <select [(ngModel)]="filterBy">
+        <option value="firstName">Prénom</option>
+        <option value="lastName">Nom de famille</option>
+      </select>
+    </div>
+    <div class="d-flex">
+      <input type="text" [(ngModel)]="searchTerm" placeholder="Rechercher...">
+      <button class="btn btn-primary ml-2" (click)="applyFilter()">Rechercher</button>
+    </div>
+    <button class="btn btn-info" (click)="navigateToCreateUser()">Create new user</button>
+  </div>
+
+
+  <div class="list-group" *ngFor="let user of filteredUsers">
+    <a href="#" class="list-group-item list-group-item-action mb-3" aria-current="true">
+      {{ user.firstName + ' ' + user.lastName  }}
+    </a>
+  </div>
+
+</div>

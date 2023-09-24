@@ -10,6 +10,8 @@ import { TaskCreateComponent } from './activity/task-create/task-create.componen
 import { TaskDetailComponent } from './activity/task-detail/task-detail.component';
 import { TaskEditComponent } from './activity/task-edit/task-edit.component';
 
+import { UserListComponent } from './user/user-list/user-list.component';
+
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import { TaskEditComponent } from './activity/task-edit/task-edit.component';
     TaskListComponent,
     TaskCreateComponent,
     TaskDetailComponent,
-    TaskEditComponent
+    TaskEditComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,
