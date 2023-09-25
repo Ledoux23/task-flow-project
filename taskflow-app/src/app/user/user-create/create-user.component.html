@@ -1,0 +1,36 @@
+<div class="container">
+  <h2 class="text-center">{{ title }}</h2>
+
+  <a href="/users" class="btn btn-info">
+    <i class="material-icons align-middle mr-2">keyboard_return</i>
+    Back to the user's list
+  </a>
+
+  <hr>
+
+  <form (submit)="createUser()">
+
+    <div class="form-group">
+      <label for="userFirstName">Prénom</label>
+      <input type="text" class="form-control" id="userFirstName" name="userFirstName" [(ngModel)]="newUser.firstName" required>
+    </div>
+    <div class="form-group">
+      <label for="userLastName">Nom</label>
+      <input type="text" class="form-control" id="userLastName" name="userLastName" [(ngModel)]="newUser.lastName" required>
+    </div>
+    <div class="form-group">
+      <label for="userEmail">Email</label>
+      <input type="text" class="form-control" id="userEmail" name="userEmail" [(ngModel)]="newUser.email" required>
+    </div>
+    <div class="form-group">
+      <label for="userPassWord">Mot de passe</label>
+      <input type="text" class="form-control" id="userPassWord" name="userPassWord" [(ngModel)]="newUser.password" required>
+    </div>
+    <div class="form-group text-center mt-3">
+      <button type="submit" class="btn btn-primary">Create</button>
+    </div>
+
+  </form>
+
+</div>
+

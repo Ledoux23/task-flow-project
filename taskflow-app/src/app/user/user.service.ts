@@ -21,7 +21,7 @@ export class UserService {
     return this.http.put<any>(`http://localhost:8080/api/users/${id}`, user);
   }
 
-  deleteAUser(id: number): Observable<void> {
+  deleteUser(id: number): Observable<void> {
     return this.http.delete<void>(`http://localhost:8080/api/users/${id}`);
   }
 
@@ -36,6 +36,7 @@ export class UserService {
   getUserByMail(mail: string) {
     return this.http.get<any>(`http://localhost:8080/api/users/findByMail?email=${mail}`);
   }
+
 
 
 

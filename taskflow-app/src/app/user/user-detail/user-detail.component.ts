@@ -1,30 +1,61 @@
-// import { Component, OnInit } from '@angular/core';
-// import { UserService } from './../user.service';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '../user.service';
 
-// @Component({
-//   selector: 'app-user-details',
-//   templateUrl: './user-details.component.html',
-//   styleUrls: ['./user-details.component.css']
-// })
-// export class UserDetailsComponent implements OnInit {
-//   public user: any = {}; // Initialisez l'utilisateur récupéré
+@Component({
+  selector: 'app-user-detail',
+  templateUrl: './user-detail.component.html',
+  styleUrls: ['./user-detail.component.css']
+})
 
-//   constructor(private userService: UserService) {}
+export class UserDetailComponent implements OnInit {
+  public title = 'Details of the user';
+  public user: any = null;
 
-//   ngOnInit() {
-//     // Exemple d'utilisation de la méthode pour récupérer un utilisateur par prénom et nom de famille
-//     const firstName = 'John';
-//     const lastName = 'Doe';
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private userService: UserService
+  ) {}
 
-//     this.userService.getUserByName(firstName, lastName)
-//       .subscribe(
-//         (user) => {
-//           this.user = user;
-//           console.log('Utilisateur récupéré :', this.user);
-//         },
-//         (error) => {
-//           console.error('Erreur lors de la récupération de l\'utilisateur', error);
-//         }
-//       );
-//   }
-// }
+  ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      const userId = params.get('id');
+      if (userId) {
+        this.fetchUserDetail(+userId);
+      }
+    });
+  }
+
+  fetchUserDetail(userId: number) {
+    this.userService.getUserById(userId).subscribe(
+      (response) => {
+        this.user = response;
+        if (this.user) {
+          console.log('Détails de l\'utilisateur récupérés du backend :', this.user);
+        }
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des détails de l\'activité depuis le backend', error);
+      }
+    );
+  }
+
+  deleteUser() {
+    if (this.user && this.user.id) {
+      this.userService.deleteUser(this.user.id).subscribe(
+        () => {
+          console.log('Utilisateur supprimé avec succès');
+          this.router.navigate(['/users']);   // Revenir à la page précédente
+          window.alert('L\'utilisateur a été supprimé avec succès!');
+        },
+        (error) => {
+          console.error('Erreur lors de la suppression de l\'utilisateur', error);
+        }
+      );
+    }
+  }
+
+
+
+}

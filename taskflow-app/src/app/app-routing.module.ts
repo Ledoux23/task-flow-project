@@ -6,9 +6,9 @@ import { TaskDetailComponent } from './activity/task-detail/task-detail.componen
 import { TaskEditComponent } from './activity/task-edit/task-edit.component';
 
 import { UserListComponent } from './user/user-list/user-list.component';
-// import { CreateUserComponent } from './user/user-create/create-user.component';
-// import { UserDetailComponent } from './user/user-detail/user-detail.component';
-// import { EditUserComponent } from './user/user-edit/edit-user.component';
+import { CreateUserComponent } from './user/user-create/create-user.component';
+import { UserDetailComponent } from './user/user-detail/user-detail.component';
+import { EditUserComponent } from './user/user-edit/edit-user.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/tasks', pathMatch: 'full' }, // Redirige vers la liste des tâches par défaut
@@ -19,9 +19,9 @@ const routes: Routes = [
 
   // users
   { path: 'users', component: UserListComponent },
-  // { path: 'create-user', component: CreateUserComponent },
-  // { path: 'user/:id', component: UserDetailComponent },
-  // { path: 'users/:id/edit', component: EditUserComponent },
+  { path: 'create-user', component: CreateUserComponent },
+  { path: 'user/:id', component: UserDetailComponent },
+  { path: 'users/:id/edit', component: EditUserComponent },
 ];
 
 @NgModule({

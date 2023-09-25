@@ -1,0 +1,29 @@
+<div class="container">
+
+  <h2 class="text-center">{{title}}</h2>
+
+  <hr>
+
+  <div class="card mx-auto" style="width: 48rem;">
+
+    <div class="card-body">
+      <p class="card-text">{{ 'Prénom : ' + user.firstName }}</p>
+      <p class="card-text">{{ 'Nom : ' + user.lastName }}</p>
+      <p class="card-text">{{ 'Email : ' + user.email }}</p>
+      <p class="card-text">{{ 'Rôle : ' + user.role }}</p>
+      <div class="d-flex justify-content-between">
+
+        <a href="/users" class="btn btn-primary">
+          <i class="material-icons align-middle">keyboard_return</i>
+          Back to the user's list
+        </a>
+        <button type="button" [routerLink]="['/users', user.id, 'edit']" class="btn btn-secondary">Edit</button>
+        <button type="submit" class="btn btn-danger" (click)="deleteUser()">Delete</button>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+

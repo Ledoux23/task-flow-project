@@ -30,7 +30,7 @@ export class Activity {
     public owner: {
       firstName: string,
       lastName: string,
-      id?: number
+      id?: number | null
     }
     // Ajouter d'autres propriétés ici si nécessaire
   ) {}

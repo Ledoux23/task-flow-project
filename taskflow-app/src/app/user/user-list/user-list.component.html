@@ -20,9 +20,11 @@
 
 
   <div class="list-group" *ngFor="let user of filteredUsers">
-    <a href="#" class="list-group-item list-group-item-action mb-3" aria-current="true">
+    <a [routerLink]="['/user', user.id]" class="list-group-item list-group-item-action mb-3" aria-current="true">
       {{ user.firstName + ' ' + user.lastName  }}
     </a>
   </div>
 
 </div>
+
+<!-- <a  style="text-decoration: none;">{{ task.name }}</a> -->

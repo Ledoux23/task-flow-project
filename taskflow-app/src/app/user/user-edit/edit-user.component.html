@@ -1,0 +1,37 @@
+<div class="container">
+
+  <h2 class="text-center">{{title}}</h2>
+
+  <hr>
+
+  <!-- Formulaire d'édition -->
+  <form>
+
+    <div class="form-group">
+      <label for="userFirstName">Prénom</label>
+      <input type="text" class="form-control" id="userFirstName" name="userFirstName" [(ngModel)]="editedUser.firstName">
+    </div>
+    <div class="form-group">
+      <label for="userLastName">Nom</label>
+      <input type="text" class="form-control" id="userLastName" name="userLastName" [(ngModel)]="editedUser.lastName">
+    </div>
+    <div class="form-group">
+      <label for="userEmail">Email</label>
+      <input type="text" class="form-control" id="userEmail" name="userEmail" [(ngModel)]="editedUser.email">
+    </div>
+    <div class="form-group">
+      <label for="userPassWord">Mot de passe</label>
+      <input type="text" class="form-control" id="userPassWord" name="userPassWord" [(ngModel)]="editedUser.password">
+    </div>
+    <!-- ... Ajouter d'autres champs d'édition ici ... -->
+    <div class="form-group d-flex justify-content-between">
+      <button type="button" class="btn btn-info" [routerLink]="['/user', editedUser.id]">
+        <i class="material-icons align-middle">keyboard_return</i>
+        Back to the edited user
+      </button>
+      <button type="button" class="btn btn-success" [routerLink]="['/user', editedUser.id]" (click)="saveUser()">Save</button>
+    </div>
+  </form>
+
+
+</div>
