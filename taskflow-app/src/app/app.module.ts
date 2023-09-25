@@ -15,6 +15,8 @@ import { CreateUserComponent } from './user/user-create/create-user.component';
 import { EditUserComponent } from './user/user-edit/edit-user.component';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
 
+import { StarRatingComponent } from './shared/components/star-rating/star-rating.component';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { UserDetailComponent } from './user/user-detail/user-detail.component';
     UserListComponent,
     CreateUserComponent,
     EditUserComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    StarRatingComponent
   ],
   imports: [
     BrowserModule,

@@ -31,7 +31,8 @@ export class Activity {
       firstName: string,
       lastName: string,
       id?: number | null
-    }
+    },
+    public rating: number,
     // Ajouter d'autres propriétés ici si nécessaire
   ) {}
 }

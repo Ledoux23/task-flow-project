@@ -34,14 +34,24 @@
   <div class="d-flex flex-wrap justify-content-between">
     <div class="row row-cols-1 row-cols-md-3">
       <!-- <div class="col mb-4" *ngFor="let task of tasks; let i = index"> -->
+      <div class="alert alert-primary" *ngIf="!!receivedRating">
+        {{ receivedRating }}
+      </div>
       <div class="col mb-4" *ngFor="let task of filteredActivities; let i = index">
-        <ul class="list-group" >
+        <ul class="list-group">
 
           <li class="list-group-item list-group-item-{{colors[i % colors.length]}}">
+
             <span class="badge badge-pill text-bg-success" *ngIf="showBadge">New</span>
-            <h4 class="card-title">
-              <a [routerLink]="['/task', task.id]" style="text-decoration: none;">{{ task.name }}</a>
-            </h4>
+
+            <app-star-rating [rating]="task.rating" (starRatingClicked)="receiveRatingClicked($event)"></app-star-rating>
+
+            <a [routerLink]="['/task', task.id]" style="text-decoration: none;">
+              <h4 class="card-title">
+                {{ task.name }}
+              </h4>
+            </a>
+
           </li>
 
         </ul>

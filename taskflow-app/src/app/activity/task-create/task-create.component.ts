@@ -12,7 +12,7 @@ import { User } from '../../user/user.model';
 export class TaskCreateComponent implements OnInit {
 
   public title = 'Create an activity';
-  public newActivity: Activity = new Activity('', '', { firstName: '', lastName: '' });
+  public newActivity: Activity = new Activity('', '', { firstName: '', lastName: '' }, 1.0);
   public errorMessage: string = '';
 
   constructor(private activityService: ActivityService) {}
@@ -39,7 +39,7 @@ export class TaskCreateComponent implements OnInit {
               (response) => {
                 console.log('Activité créée avec succès :', response);
                 // Réinitialiser les données du formulaire ou effectuer d'autres actions nécessaires
-                this.newActivity = new Activity('', '', { firstName: '', lastName: '' });
+                this.newActivity = new Activity('', '', { firstName: '', lastName: '' }, 1.0);
                 this.errorMessage = ''; // Réinitialiser également les messages d'erreur
                 // Possibilité d'ajouter ici du code pour mettre à jour l'affichage ou afficher un message de succès.
                 window.alert('L\'activité a été créée avec succès!');

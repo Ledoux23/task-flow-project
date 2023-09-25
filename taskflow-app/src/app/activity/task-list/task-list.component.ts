@@ -17,6 +17,8 @@ export class TaskListComponent implements OnInit {
   private _activityFilter = 'word';
   public filteredActivities: any[] = [];
 
+  public receivedRating: string = '';
+
   constructor(
     private activityService: ActivityService,
     private router: Router
@@ -82,6 +84,11 @@ export class TaskListComponent implements OnInit {
 
     return res;
 
+  }
+
+
+  public receiveRatingClicked(message: string): void {
+    this.receivedRating = message;
   }
 
 }

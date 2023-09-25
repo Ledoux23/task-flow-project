@@ -25,6 +25,10 @@
       <label for="authorLastName">Nom de l'auteur</label>
       <input type="text" class="form-control" id="authorLastName" name="authorLastName" [(ngModel)]="newActivity.owner.lastName" required>
     </div>
+    <div class="form-group">
+      <label for="rating">Nombre d'étoiles</label>
+      <input type="text" class="form-control" id="rating" name="rating" [(ngModel)]="newActivity.rating" required>
+    </div>
     <!-- Ajouter d'autres champs du formulaire ici si nécessaire -->
     <div class="form-group text-center mt-3">
       <button type="submit" class="btn btn-primary">Create</button>

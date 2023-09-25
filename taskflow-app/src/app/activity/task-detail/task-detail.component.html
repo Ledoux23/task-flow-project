@@ -13,7 +13,11 @@
         on {{ task.formattedCreationDate }}
         <!-- on : {{ task.formattedCreationDate ? task.formattedCreationDate : 'N/A' }} -->
       </h6>
+
       <p class="card-text">Satatus : <strong class="text-success">{{task.status}}</strong></p>
+
+      <app-star-rating [rating]="task.rating"></app-star-rating>
+
       <p class="card-text">{{task.description}}</p>
       <div class="d-flex justify-content-between">
 
